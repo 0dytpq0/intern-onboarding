@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import Cookies from "js-cookie";
 import { User } from "../stores/auth.store";
 
 class Auth {
@@ -6,6 +7,20 @@ class Auth {
 
   constructor(axios: AxiosInstance) {
     this.#axios = axios;
+    this.#axios.interceptors.request.use(
+      (config) => {
+        const token = Cookies.get("accessToken");
+
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
   //   {
   //     "id": "유저 아이디",
@@ -57,7 +72,8 @@ class Auth {
 
   async setAccessToken(token: string) {
     this.#axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    console.log("123", 123);
+
+    Cookies.set("accessToken", token, { expires: 1 / 96 });
   }
 }
 
