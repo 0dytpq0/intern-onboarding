@@ -4,28 +4,24 @@ import { immer } from "zustand/middleware/immer";
 type UserStoreProps = {
   user: User;
   putId: (value: string) => void;
-  putEmail: (value: string) => void;
   putPassword: (value: string) => void;
   putNickname: (value: string) => void;
-  putUser: (value: User) => void;
-  putImage: (value: string) => void;
+  putAvatar: (value: string) => void;
 };
 
 export type User = {
   id: string;
-  email: string;
   password: string;
   nickname: string;
-  image_url: string;
+  avatar: string;
 };
 
 export const useAuthStore = create<UserStoreProps>()(
   immer((set) => ({
     user: {
       id: "",
-      email: "",
       password: "",
-      image_url: "/",
+      avatar: "/",
       nickname: "",
     },
     putId: (newId) => {
@@ -33,11 +29,7 @@ export const useAuthStore = create<UserStoreProps>()(
         prevUser.user.id = newId;
       });
     },
-    putEmail: (newEmail) => {
-      set((prevUser) => {
-        prevUser.user.email = newEmail;
-      });
-    },
+
     putPassword: (newPassword) => {
       set((prevUser) => {
         prevUser.user.password = newPassword;
@@ -48,14 +40,9 @@ export const useAuthStore = create<UserStoreProps>()(
         prevUser.user.nickname = newNick;
       });
     },
-    putImage: (newURL) => {
+    putAvatar: (newURL) => {
       set((prevUser) => {
-        prevUser.user.image_url = newURL;
-      });
-    },
-    putUser: (newUser) => {
-      set((prevUser) => {
-        prevUser.user = newUser;
+        prevUser.user.avatar = newURL;
       });
     },
   }))
