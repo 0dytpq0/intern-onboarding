@@ -1,5 +1,10 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import MESSAGE from "../../constants/message";
 import { useModal } from "../../contexts/modal.context";
+import { User } from "../../stores/auth.store";
 import { Validator } from "../../utils/validateSignup";
 import Input from "../atom/Input";
 
@@ -7,8 +12,20 @@ function LoginForm() {
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
   const [isUserId, setIsUserId] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const modal = useModal();
+
+  const { mutate: login } = useMutation({
+    mutationFn: (data: Pick<User, "id" | "password">) => api.auth.logIn(data),
+    onSuccess: async (data) => {
+      await api.auth.setAccessToken(data.accessToken);
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+      navigate("/");
+    },
+    onError: () => modal.open({ title: MESSAGE.ERROR_MESSAGE.login }),
+  });
 
   useEffect(() => {
     if (isUserId && passwordInputRef.current) {
@@ -40,17 +57,8 @@ function LoginForm() {
         ref={passwordInputRef}
         innerClassName={`${isUserId ? "visible" : "invisible"} `}
         handleSubmit={() => {
-          // login.mutate(
-          //   { userId, userPassword },
-          //   {
-          //     onSuccess: () => {
-          //       router.push("/");
-          //     },
-          //     onError: () => {
-          //       modal.open({ title: MESSAGE.ERROR_MESSAGE.login });
-          //     },
-          //   }
-          // );
+          const userInfo = { id: userId, password: userPassword };
+          login(userInfo);
         }}
         validator={Validator.signup.userPassword}
       />

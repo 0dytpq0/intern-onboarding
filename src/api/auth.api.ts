@@ -15,7 +15,7 @@ class Auth {
   async signUp(data: Omit<User, "avatar">) {
     const path = "/register";
     const response = await this.#axios.post(path, data);
-    const result = response;
+    const result = response.data;
 
     return result;
   }
@@ -23,7 +23,7 @@ class Auth {
   //   "id":"유저 아이디",
   //   "password": "유저 비밀번호"
   // }
-  async signIn(data: Pick<User, "id" | "password">) {
+  async logIn(data: Pick<User, "id" | "password">) {
     const path = "/login";
     const response = await this.#axios.post(path, data);
     const result = response.data;
@@ -34,6 +34,7 @@ class Auth {
     const path = "/user";
 
     const response = await this.#axios.get(path);
+    console.log("response", response);
     const result = response.data;
     return result;
   }
@@ -56,6 +57,7 @@ class Auth {
 
   async setAccessToken(token: string) {
     this.#axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    console.log("123", 123);
   }
 }
 
