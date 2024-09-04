@@ -12,7 +12,6 @@ function DefaultLayout() {
       navigate("/login");
     }
   }, [navigate, location]);
-
   return (
     <div className="flex items-center justify-center w-screen h-screen">
       <Outlet />
