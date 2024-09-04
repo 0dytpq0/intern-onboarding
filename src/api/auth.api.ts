@@ -49,7 +49,6 @@ class Auth {
     const path = "/user";
 
     const response = await this.#axios.get(path);
-    console.log("response", response);
     const result = response.data;
     return result;
   }
@@ -58,7 +57,7 @@ class Auth {
   //   "avatar": [이미지파일],
   //   "nickname": "변경할 닉네임"
   // }
-  async updateProfile(data: Pick<User, "avatar" | "nickname">) {
+  async updateProfile(data: { avatar: File; nickname: string }) {
     const path = "/profile";
     const response = await this.#axios.patch(path, data, {
       headers: {
@@ -66,7 +65,6 @@ class Auth {
       },
     });
     const result = response.data;
-    console.log("update result", result);
     return result;
   }
 

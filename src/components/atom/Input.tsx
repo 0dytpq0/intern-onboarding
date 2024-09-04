@@ -16,6 +16,7 @@ type InputProps = InputVariantProps & {
   handleSubmit?: () => void;
   innerClassName?: string;
   formType: string;
+  size?: "md" | "sm";
   validator: ValidatorFunction;
 } & ComponentProps<"input">;
 
@@ -30,9 +31,14 @@ const InputVariant = cva(
           "border border-[#86868B] focus:border-2 focus:border-[#0071e3]",
         warning: "border border-red-500 focus:border-2 focus:border-red-700",
       },
+      size: {
+        md: "h-14",
+        sm: "h-4",
+      },
     },
     defaultVariants: {
       variant: "primary",
+      size: "md",
     },
   }
 );
@@ -47,6 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       innerClassName,
       formType,
       validator,
+      size,
       ...props
     },
     ref
@@ -93,6 +100,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 validator(inputValue) !== null && inputValue.length !== 0
                   ? "warning"
                   : "primary",
+              size,
             })}
           />
           {formType === "login" && !isSubmit && (

@@ -1,20 +1,18 @@
-import { Outlet } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function DefaultLayout() {
-  // const { putUser } = useAuthStore();
-  // const {isError} = useQuery({
-  //   queryKey: ["userInfo"],
-  //   queryFn: async () => {
-  //     const info = await api.auth.getUserInfo();
-  //     delete info.success;
-  //     putUser(info);
-  //     return info;
-  //   },
-  //   retry: 1,
-  // });
-  // if(isError) {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // }
+  useEffect(() => {
+    const token = Cookies.get("accessToken");
+    if (location.pathname === "/user" && token === undefined) {
+      navigate("/login");
+    }
+  }, [navigate, location]);
+
   return (
     <div className="flex items-center justify-center w-screen h-screen">
       <Outlet />
