@@ -3,6 +3,8 @@
 import { VariantProps, cva } from "class-variance-authority";
 import { DebouncedFunc } from "lodash";
 import { ComponentProps, forwardRef, useId, useState } from "react";
+import ArrowCircleRightIcon from "../../assets/arrow-circle-right.svg?react";
+
 type ValidatorFunction =
   | ((value: string, extraValue?: string) => string | null)
   | DebouncedFunc<(value: string, extraValue?: string) => string | null>;
@@ -94,18 +96,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             })}
           />
           {formType === "login" && !isSubmit && (
-            <div></div>
-            // <ArrowCircleRightIcon
-            //   className={`absolute right-3 transition-all duration-200 ease-in-out hover:cursor-pointer ${
-            //     isFocused || inputValue
-            //       ? "transform translate-y-[10px]"
-            //       : "transform translate-y-0"
-            //   }`}
-            //   width={30}
-            //   height={30}
-            //   fill={"#86868B"}
-            //   onClick={handleSubmit}
-            // />
+            <ArrowCircleRightIcon
+              className={`absolute right-3 transition-all duration-200 ease-in-out hover:cursor-pointer ${
+                isFocused || inputValue
+                  ? "transform translate-y-[10px]"
+                  : "transform translate-y-0"
+              }`}
+              width={30}
+              height={30}
+              fill={"#86868B"}
+              onClick={handleSubmit}
+            />
           )}
         </div>
         {validator(inputValue) !== null && inputValue.length !== 0 && (

@@ -17,7 +17,7 @@ function DefaultLayout() {
   // }
   return (
     <div className="flex items-center justify-center w-screen h-screen">
-      <Outlet />;
+      <Outlet />
     </div>
   );
 }
