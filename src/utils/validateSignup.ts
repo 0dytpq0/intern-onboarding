@@ -31,7 +31,10 @@ function verifyPassword(
     ? null
     : MESSAGE.ERROR_MESSAGE.verifyPassword;
 }
-
+function nickName(nickName: string): string | null {
+  const pattern = /^[^\s]*$/; // 띄어쓰기를 포함하지 않는 모든 문자 허용
+  return pattern.test(nickName) ? null : MESSAGE.ERROR_MESSAGE.nickName;
+}
 function form(data: SignupProps): void {
   const errors: { [key in keyof SignupProps]?: string | null } = {
     userId: Validator.signup.userId(data.userId),
@@ -55,5 +58,6 @@ export const Validator = {
     userId,
     userPassword,
     verifyPassword,
+    nickName,
   },
 };

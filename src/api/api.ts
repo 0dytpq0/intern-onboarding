@@ -9,23 +9,11 @@ class API {
   auth;
 
   constructor() {
-    // 후에 baseUrl이 생긴다면 업데이트 해줄 것
     this.#axios = axios.create({ baseURL: AUTH_URL });
+
     this.auth = new Auth(axios.create({ baseURL: AUTH_URL }));
-
-    // this.#axios.interceptors.request.use(
-    //   async (config) => {
-    //     await this.auth.getUserInfo();
-
-    //     return config;
-    //   },
-    //   (error) => {
-    //     return error;
-    //   }
-    // );
   }
 }
 
 const api = new API();
-
 export default api;

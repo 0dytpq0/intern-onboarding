@@ -7,13 +7,14 @@ type UserStoreProps = {
   putPassword: (value: string) => void;
   putNickname: (value: string) => void;
   putAvatar: (value: string) => void;
+  putUser: (value: User) => void;
 };
 
 export type User = {
   id: string;
   password: string;
   nickname: string;
-  avatar: string;
+  avatar: string | null;
 };
 
 export const useAuthStore = create<UserStoreProps>()(
@@ -21,7 +22,7 @@ export const useAuthStore = create<UserStoreProps>()(
     user: {
       id: "",
       password: "",
-      avatar: "/",
+      avatar: null,
       nickname: "",
     },
     putId: (newId) => {
@@ -43,6 +44,11 @@ export const useAuthStore = create<UserStoreProps>()(
     putAvatar: (newURL) => {
       set((prevUser) => {
         prevUser.user.avatar = newURL;
+      });
+    },
+    putUser: (newUser) => {
+      set((prevUser) => {
+        prevUser.user = newUser;
       });
     },
   }))
