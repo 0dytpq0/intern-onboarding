@@ -44,7 +44,7 @@ function SignupForm() {
   };
 
   return (
-    <div className="max-w-[460px] mx-auto flex flex-col items-center justify-center ">
+    <div className="w-[480px] min-h-[700px] mx-auto flex flex-col items-center justify-center ">
       <h2 className="w-full pt-8 text-3xl font-bold text-center">ID 생성</h2>
       <form
         className="flex flex-col w-full pt-8 gap-y-4"

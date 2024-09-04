@@ -6,6 +6,7 @@ import MESSAGE from "../../constants/message";
 import { useModal } from "../../contexts/modal.context";
 import { User, useAuthStore } from "../../stores/auth.store";
 import { Validator } from "../../utils/validateSignup";
+import Button from "../atom/Button";
 import Input from "../atom/Input";
 
 function LoginForm() {
@@ -39,7 +40,10 @@ function LoginForm() {
   const passwordInputRef = useRef<HTMLInputElement>(null);
   return (
     <div className="w-[480px] min-h-[700px] mx-auto flex flex-col justify-center gap-y-4">
-      <h1 className="text-2xl font-bold">로그인</h1>
+      <div className="flex items-center justify-between w-full">
+        <h1 className="text-2xl font-bold">로그인</h1>
+        <Button onClick={() => navigate("/signup")}>회원가입</Button>
+      </div>
       <Input
         formType="login"
         inputValue={userId}

@@ -61,7 +61,7 @@ function UserPage() {
     <div className="relative w-full max-w-[400px] h-[200px] mx-auto overflow-hidden bg-white rounded-lg shadow-md">
       <div className="flex items-center justify-center w-full h-full p-6">
         <img
-          className="object-cover w-20 h-20 rounded-full"
+          className="object-cover w-20 h-20 rounded-full hover:cursor-pointer hover:brightness-90 active:brightness-75"
           onClick={handleImageClick}
           src={previewAvatar ? previewAvatar : user?.avatar ?? "/"}
           alt="User avatar"
