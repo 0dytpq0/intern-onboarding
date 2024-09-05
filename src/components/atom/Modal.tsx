@@ -8,10 +8,9 @@ interface ModalProps {
 
 function Modal({ title }: ModalProps) {
   const modal = useModal();
-
   return (
     <Backdrop>
-      <article className="modal">
+      <article className="bg-white pt-6 pb-4 px-6 rounded-lg w-[360px] h-[120px] flex flex-col items-center justify-between">
         <h1 className="font-semibold">{title}</h1>
         <Button
           size={"sm"}

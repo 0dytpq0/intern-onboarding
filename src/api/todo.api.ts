@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import { AxiosInstance } from "axios";
 
 class Todo {
@@ -8,19 +9,29 @@ class Todo {
   }
 
   async getTodos() {
-    const path = "/todos";
-    const response = await this.#axios.get(path);
-    const result = response.data;
+    try {
+      const path = "/todos";
+      const response = await this.#axios.get(path);
+      const result = response.data;
 
-    return result;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("Todos 호출 실패");
+    }
   }
 
   async getTodo(id: number) {
-    const path = `todos/${id}`;
-    const response = await this.#axios.get(path);
-    const result = response.data;
+    try {
+      const path = `todos/${id}`;
+      const response = await this.#axios.get(path);
+      const result = response.data;
 
-    return result;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("Todo 호출 실패");
+    }
   }
 }
 

@@ -1,10 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../api/api";
-import MESSAGE from "../../constants/message";
-import { useModal } from "../../contexts/modal.context";
-import { User, useAuthStore } from "../../stores/auth.store";
+import { useAuth } from "../../hooks/useAuth";
 import { Validator } from "../../utils/validateSignup";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
@@ -13,22 +9,8 @@ function LoginForm() {
   const [userId, setUserId] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
   const [isUserId, setIsUserId] = useState<boolean>(false);
-  const { putUser } = useAuthStore();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const modal = useModal();
-
-  const { mutate: login } = useMutation({
-    mutationFn: (data: Pick<User, "id" | "password">) => api.auth.logIn(data),
-    onSuccess: async (data) => {
-      await api.auth.setAccessToken(data.accessToken);
-      delete data.accessToken;
-      putUser(data);
-      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
-      navigate("/");
-    },
-    onError: () => modal.open({ title: MESSAGE.ERROR_MESSAGE.login }),
-  });
+  const { login } = useAuth();
 
   useEffect(() => {
     if (isUserId && passwordInputRef.current) {

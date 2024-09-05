@@ -31,15 +31,24 @@ export const useAuth = () => {
   const { mutate: signup } = useMutation({
     mutationFn: (userInfo: Omit<User, "avatar">) => api.auth.signUp(userInfo),
     onSuccess: () => {
-      navigate("/");
+      navigate("/login");
     },
     onError: () => {
       modal.open({ title: MESSAGE.ERROR_MESSAGE.signup });
     },
   });
 
+  const { mutate: updateProfile } = useMutation({
+    mutationFn: (data: { avatar: File; nickname: string }) =>
+      api.auth.updateProfile(data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["userInfo"] }),
+    onError: () => {
+      modal.open({ title: "유저 정보 수정 실패" });
+    },
+  });
   return {
     login,
     signup,
+    updateProfile,
   };
 };

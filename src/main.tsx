@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { ModalProvider } from "./contexts/modal.context.tsx";
 import "./index.css";
 import QueryProvider from "./providers/query.provider.tsx";
 import router from "./routes/router.tsx";
@@ -24,7 +25,9 @@ Sentry.init({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryProvider>
-      <RouterProvider router={router} />
+      <ModalProvider>
+        <RouterProvider router={router} />
+      </ModalProvider>
     </QueryProvider>
   </StrictMode>
 );

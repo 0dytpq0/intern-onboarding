@@ -29,11 +29,16 @@ class Auth {
   // 		"nickname": "유저 닉네임"
   // }
   async signUp(data: Omit<User, "avatar">) {
-    const path = "/register";
-    const response = await this.#axios.post(path, data);
-    const result = response.data;
+    try {
+      const path = "/register";
+      const response = await this.#axios.post(path, data);
+      const result = response.data;
 
-    return result;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("회원가입 실패");
+    }
   }
   // {
   //   "id":"유저 아이디",
@@ -46,17 +51,23 @@ class Auth {
       const result = response.data;
       return result;
     } catch (error) {
+      console.log("123ss", 123);
       Sentry.captureException(error);
       throw new Error("로그인 실패");
     }
   }
 
   async getUserInfo() {
-    const path = "/user";
+    try {
+      const path = "/user";
 
-    const response = await this.#axios.get(path);
-    const result = response.data;
-    return result;
+      const response = await this.#axios.get(path);
+      const result = response.data;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("유저 정보 호출 실패");
+    }
   }
 
   // {
@@ -64,14 +75,19 @@ class Auth {
   //   "nickname": "변경할 닉네임"
   // }
   async updateProfile(data: { avatar: File; nickname: string }) {
-    const path = "/profile";
-    const response = await this.#axios.patch(path, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    const result = response.data;
-    return result;
+    try {
+      const path = "/profile";
+      const response = await this.#axios.patch(path, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const result = response.data;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("프로필 업데이트 실패");
+    }
   }
 
   async setAccessToken(token: string) {

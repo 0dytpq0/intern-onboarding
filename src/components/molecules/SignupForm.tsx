@@ -1,8 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../../api/api";
-import { User } from "../../stores/auth.store";
+import { useAuth } from "../../hooks/useAuth";
 import { Validator } from "../../utils/validateSignup";
 import Button from "../atom/Button";
 import Input from "../atom/Input";
@@ -15,7 +12,6 @@ type formDataType = {
 };
 
 function SignupForm() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState<formDataType>({
     userId: "",
     userPassword: "",
@@ -23,10 +19,7 @@ function SignupForm() {
     nickName: "",
   });
 
-  const { mutate: signup } = useMutation({
-    mutationFn: (userInfo: Omit<User, "avatar">) => api.auth.signUp(userInfo),
-    onSuccess: () => navigate("/"),
-  });
+  const { signup } = useAuth();
 
   const handleChange = (name: keyof formDataType, value: string) => {
     setFormData({
