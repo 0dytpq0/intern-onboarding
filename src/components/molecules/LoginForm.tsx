@@ -16,7 +16,6 @@ function LoginForm() {
   const { putUser } = useAuthStore();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const modal = useModal();
 
   const { mutate: login } = useMutation({
