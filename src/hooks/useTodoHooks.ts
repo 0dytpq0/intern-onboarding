@@ -8,7 +8,6 @@ export const useTodos = () => {
   });
 };
 
-// 특정 ID의 할 일을 가져오는 훅
 export const useTodo = (id: number) => {
   return useQuery({
     queryKey: ["todos", id],

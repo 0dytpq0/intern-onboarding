@@ -13,7 +13,6 @@ function HomePage() {
   // 전체 가져오는 로직
 
   const { data: todos } = useTodos();
-  console.log("todos", todos);
   const TodoList = (todo: Todo) => {
     return (
       <div className="flex items-center justify-center h-[200px]">

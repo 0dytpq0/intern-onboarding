@@ -22,10 +22,12 @@ function SignupForm() {
     verifyPassword: "",
     nickName: "",
   });
+
   const { mutate: signup } = useMutation({
     mutationFn: (userInfo: Omit<User, "avatar">) => api.auth.signUp(userInfo),
     onSuccess: () => navigate("/"),
   });
+
   const handleChange = (name: keyof formDataType, value: string) => {
     setFormData({
       ...formData,
