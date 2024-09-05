@@ -5,12 +5,12 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "target": "ESNext", // 최신 ECMAScript를 타겟팅
-    "module": "ESNext", // import.meta 등을 사용하려면 esnext 필요
-    "jsx": "react-jsx", // JSX 지원을 위해 'react-jsx' 또는 'react' 사용
-    "esModuleInterop": true, // ECMAScript 모듈 호환성 설정
-    "moduleResolution": "node", // Node 모듈 해석 방식
-    "skipLibCheck": true, // 라이브러리 체크 건너뛰기
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   }
 }

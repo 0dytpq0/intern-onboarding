@@ -15,6 +15,7 @@ export type User = {
   password: string;
   nickname: string;
   avatar: string | null;
+  accessToken?: string;
 };
 
 export const useAuthStore = create<UserStoreProps>()(

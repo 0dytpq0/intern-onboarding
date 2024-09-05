@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import api from "../api/api";
 import Button from "../components/atom/Button";
+import { useTodos } from "../hooks/useTodoHooks";
 type Todo = {
   userId: number;
   id: number;
@@ -12,15 +11,9 @@ type Todo = {
 function HomePage() {
   const navigate = useNavigate();
   // 전체 가져오는 로직
-  const { data: todos } = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => api.todo.getTodos(),
-  });
-  // 개별로 가져오는 로직 (id는 일단 매직 넘버로 할당)
-  // const { data: todo } = useQuery({
-  //   queryKey: ["todos", 3],
-  //   queryFn: () => api.todo.getTodo(3),
-  // });
+
+  const { data: todos } = useTodos();
+  console.log("todos", todos);
   const TodoList = (todo: Todo) => {
     return (
       <div className="flex items-center justify-center h-[200px]">

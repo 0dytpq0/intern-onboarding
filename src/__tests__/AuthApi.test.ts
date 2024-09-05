@@ -15,7 +15,7 @@ describe("Auth API 테스트", () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks(); // 각 테스트 후 모킹 초기화
+    jest.clearAllMocks();
   });
 
   describe("회원가입 테스트 (signUp)", () => {

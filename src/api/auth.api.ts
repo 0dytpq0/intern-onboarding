@@ -46,7 +46,6 @@ class Auth {
       const result = response.data;
       return result;
     } catch (error) {
-      console.log("error", error);
       Sentry.captureException(error);
       throw new Error("로그인 실패");
     }
