@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 import { User } from "../stores/auth.store";
@@ -39,10 +40,15 @@ class Auth {
   //   "password": "유저 비밀번호"
   // }
   async logIn(data: Pick<User, "id" | "password">) {
-    const path = "/login";
-    const response = await this.#axios.post(path, data);
-    const result = response.data;
-    return result;
+    try {
+      const path = "/login";
+      const response = await this.#axios.post(path, data);
+      const result = response.data;
+      return result;
+    } catch (error) {
+      Sentry.captureException(error);
+      throw new Error("로그인 실패");
+    }
   }
 
   async getUserInfo() {

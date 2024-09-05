@@ -6,8 +6,7 @@ interface ModalOptions {
 }
 
 const initialValue = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  open: (options: ModalOptions) => {},
+  open: (_options: ModalOptions) => {},
   close: () => {},
 };
 
@@ -22,8 +21,8 @@ interface ModalProviderProps {
 export function ModalProvider({ children }: ModalProviderProps) {
   const [modalOptions, setModalOptions] = useState<ModalOptions | null>(null);
   const value = {
-    open: (options: ModalOptions) => {
-      setModalOptions(options);
+    open: (_options: ModalOptions) => {
+      setModalOptions(_options);
     },
     close: () => {
       setModalOptions(null);
